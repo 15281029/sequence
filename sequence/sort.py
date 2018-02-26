@@ -45,16 +45,16 @@ def bubble(aiter):
 @timer
 def selection(aiter):
     for i in range(len(aiter)-1, 0, -1):
-        maxone = 0
+        maxval = 0
         for j in range(1, i+1):
-            if aiter[j] > aiter[maxone]:
-                maxone = j
+            if aiter[j] > aiter[maxval]:
+                maxval = j
         temp = aiter[i]
-        aiter[i] = aiter[maxone]
-        aiter[maxone] = temp
+        aiter[i] = aiter[maxval]
+        aiter[maxval] = temp
 
 
-rl = rander(quantity=20000, minval=0, maxval=100000, typed='di', repeat=False)
+rl = rander(quantity=10000, minval=0, maxval=100000, typed='di', repeat=False)
 r1 = rl.randlist.copy()
 r2 = rl.randlist.copy()
 r3 = rl.randlist.copy()
