@@ -23,8 +23,8 @@ class rander(object):
         typed       生成随机数的类型
             -'i'    整数
             -'f'    浮点数
-            -'.1f'  一个小数点的浮点数
-            -'.nf'  n个小数点的浮点数(最大9)
+            -'.1f'  一个小数位的浮点数
+            -'.nf'  n个小数位的浮点数(最大9)
 
             -'b'    二进制
             -'d'    十进制
@@ -33,8 +33,8 @@ class rander(object):
 
             eg.
                 typed='di'      十进制整数
-                      '.2df'    十进制带两位小数的浮点数
-        repeat      是否可重复
+                      '.2df'    十进制带两位小数位的浮点数
+        repeat      数字是否可重复
     '''
 
     def __init__(self, quantity, minval, maxval, typed='di', repeat=False):
@@ -53,6 +53,8 @@ class rander(object):
             pass
         else:
             raise('参数错误')
+        if self.typed is 'f' and self.ary in ['b', 'o', 'h']:
+            raise('浮点数暂不支持转换为其他进制!')
         if self.typed != 'i':
             self.dig = typed[1:-2]
             if self.dig in ['{0}'.format(i) for i in range(1, 10)]:
@@ -63,17 +65,31 @@ class rander(object):
                 raise('参数错误')
         else:
             self.dig = 0
+
+        if self.typed is 'i' and self.repeat is False:
+            if self.maxval-self.minval < self.quantity:
+                raise('序列长度不足!')
         self.randlist = []  # 随机数组
 
         # print(self.typed, self.ary, self.dig)
         self.rander()
 
-    def __call__(self):
-        return self.randlist
-
     @timer
     def rander(self):
         while len(self.randlist) < self.quantity:
-            temp = random.randint(self.minval, self.maxval)
-            if temp not in self.randlist:
+            if self.typed in ['i']:
+                temp = random.randint(self.minval, self.maxval)
+                if self.ary is 'b':
+                    temp = bin(temp)
+                elif self.ary is 'o':
+                    temp = oct(temp)
+                elif self.ary is 'h':
+                    temp = hex(temp)
+            elif self.typed in ['f']:
+                temp = random.uniform(self.minval, self.maxval)
+                temp = round(temp, self.dig)
+            if self.repeat:
                 self.randlist.append(temp)
+            elif not self.repeat:
+                if temp not in self.randlist:
+                    self.randlist.append(temp)

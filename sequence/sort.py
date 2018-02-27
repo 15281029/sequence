@@ -54,7 +54,9 @@ def selection(aiter):
         aiter[maxval] = temp
 
 
-rl = rander(quantity=10000, minval=0, maxval=100000, typed='di', repeat=False)
+rl = rander(quantity=100, minval=0, maxval=100,
+            typed='di', repeat=False)
+
 r1 = rl.randlist.copy()
 r2 = rl.randlist.copy()
 r3 = rl.randlist.copy()
@@ -62,3 +64,5 @@ r3 = rl.randlist.copy()
 shell(r1)
 bubble(r2)
 selection(r3)
+
+print(r1)
