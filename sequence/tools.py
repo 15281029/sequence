@@ -72,10 +72,10 @@ class rander(object):
         self.randlist = []  # 随机数组
 
         # print(self.typed, self.ary, self.dig)
-        self.rander()
+        self.__rander()
 
     @timer
-    def rander(self):
+    def __rander(self):
         while len(self.randlist) < self.quantity:
             if self.typed in ['i']:
                 temp = random.randint(self.minval, self.maxval)
@@ -93,3 +93,12 @@ class rander(object):
             elif not self.repeat:
                 if temp not in self.randlist:
                     self.randlist.append(temp)
+
+    def __len__(self):
+        return len(self.randlist)
+
+    def __iter__(self):
+        return iter(self.randlist)
+
+    def __getitem__(self, index):
+        return self.randlist[index]

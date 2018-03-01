@@ -55,7 +55,9 @@ def selection(aiter):
 
 
 rl = rander(quantity=100, minval=0, maxval=100,
-            typed='di', repeat=False)
+            typed='.2df', repeat=False)
+
+print(rl.randlist)
 
 r1 = rl.randlist.copy()
 r2 = rl.randlist.copy()
@@ -65,4 +67,5 @@ shell(r1)
 bubble(r2)
 selection(r3)
 
-print(r1)
+for i in rl[:5]:
+    print(i)
